@@ -2,16 +2,21 @@
 
 {% block content %}
     {% for post in posts %}
-        <div class="post">    
-            <div class="date">
-                
-                {{ post.published_date }}
-            </div>
+        <div class="post">
+            {% if post.clicked_date %}    
+                <div class="date">  
+                    {{ post.published_date }}
+                </div>
+            {% else %}
+                {{post.published_date}}
+                <a class="btn btn-default" onclick="return confirm('정말 뜯어갈테냐?')" href="{% url 'post_scrap' pk=post.pk %}"><span class="glyphicon glyphicon-scissors"></span></a>
+            {% endif%}
             <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-            <a class="btn btn-default" onclick="return confirm('정말 뜯어갈테냐?')" href="{% url 'post_remove' pk=post.pk %}"><span class="glyphicon glyphicon-scissors"></span></a>
+            <p>{{ post.text|linebreaksbr }}</p>    
         </div>
         
     {% endfor %}
 
 {% endblock %}
+
+

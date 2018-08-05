@@ -55,7 +55,15 @@ def post_others(request):
     return render(request, 'landi1/other_diary.html', {'posts': posts})
 
 
-def post_scrap(request):
-    post = Post.objects.filter(clicked_date__isnull=True).order_by('created_date')
-    
+def scrap_list(request):
+    posts = Post.objects.filter(scraped_date__isnull=False).order_by('published_date')
     return render(request, 'landi1/post_scrap.html', {'posts': posts})
+
+def post_scrap(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.scrap()
+    return redirect('post_detail', pk=pk)
+
+
+
+
