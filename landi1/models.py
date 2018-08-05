@@ -11,6 +11,8 @@ class Post(models.Model): # 모델을 정의하는 코드, 모델은 object의 �
         default=timezone.now)
     published_date = models.DateTimeField(
         blank=True, null=True)
+    clicked_date = models.DateTimeField(
+        blank=True, null=True)
     
     def publish(self):
         self.published_date = timezone.now()

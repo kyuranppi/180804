@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
+# from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def post_list(request):
@@ -12,6 +13,7 @@ def post_list(request):
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     return render(request, 'landi1/post_detail.html', {'post': post})
+
 
 def post_new(request):
     if request.method == "POST":
@@ -26,6 +28,7 @@ def post_new(request):
         form = PostForm()
     return render(request, 'landi1/post_edit.html', {'form': form})
 
+
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
@@ -39,3 +42,20 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
     return render(request, 'landi1/post_edit.html', {'form': form})
+
+
+def post_remove(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('post_list')
+
+# 추가
+def post_others(request):
+    posts = Post.objects.filter(published_date__isnull=False).order_by('published_date')
+    return render(request, 'landi1/other_diary.html', {'posts': posts})
+
+
+def post_scrap(request):
+    post = Post.objects.filter(clicked_date__isnull=True).order_by('created_date')
+    
+    return render(request, 'landi1/post_scrap.html', {'posts': posts})

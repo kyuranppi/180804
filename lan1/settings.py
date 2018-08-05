@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'landi1'
+    'landi1',
+    'login',
 ]
 
 MIDDLEWARE = [
