@@ -10,4 +10,5 @@ urlpatterns = [
     path('post/others', views.post_others, name='post_others'),
     path('post/scrap', views.scrap_list, name='scrap_list'),
     path('post/<int:pk>/scrap', views.post_scrap, name='post_scrap'),
+    
 ]
